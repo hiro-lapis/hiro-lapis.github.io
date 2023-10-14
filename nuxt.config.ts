@@ -4,5 +4,9 @@ export default defineNuxtConfig({
   typescript: {
     strict: true,
   },
-  modules: ['@nuxtjs/tailwindcss']
+  modules: ['@nuxtjs/tailwindcss'],
+  app: {
+    // baseURL: '', /<repository>/<baseURL>
+    buildAssetsDir: 'assets',
+  },
 })
