@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   },
   modules: ['@nuxtjs/tailwindcss'],
   app: {
-    baseURL: '/hiro-lapis-page/', // /<repository>/
+    baseURL: '/hiro-lapis.github.io/', // /<repository>/
     buildAssetsDir: 'assets',
   },
 })
