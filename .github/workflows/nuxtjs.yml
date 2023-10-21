@@ -1,4 +1,4 @@
-# Set workflow for building and deploying a Nuxt site to GitHub Pages
+# Sample workflow for building and deploying a Nuxt site to GitHub Pages
 #
 # To get started with Nuxt see: https://nuxtjs.org/docs/get-started/installation
 #
@@ -31,30 +31,36 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # https://github.com/pnpm/action-setup
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
         with:
-          version: 7
-      - name: Setup Node.js
+          version: 8
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: "18"
-          cache: "pnpm"
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
         uses: actions/configure-pages@v3
         with:
           static_site_generator: nuxt
-      - name: Install & Generate
-        run: |
-          pnpm install
-          pnpm generate
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            dist
+            .nuxt
+          key: ${{ runner.os }}-nuxt-build-${{ hashFiles('dist') }}
+          restore-keys: |
+            ${{ runner.os }}-nuxt-build-
+      - name: Install dependencies
+        run: pnpm install
+      - name: Static HTML export with Nuxt
+        run: pnpm generate
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           path: ./dist
-        env:
-          NUXT_APP_BASE_URL: ${{ vars.NUXT_APP_BASE_URL  }}
 
   # Deployment job
   deploy:
