@@ -34,7 +34,7 @@ jobs:
       - name: Setup PNPM # https://github.com/pnpm/action-setup
         uses: pnpm/action-setup@v2
         with:
-        version: 8
+          version: 8
       # - name: Detect package manager
       #   id: detect-package-manager
       #   run: |
