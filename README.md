@@ -2,6 +2,12 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## NOTES
+for below issue, package.json is customized, to pin vue version `"vue": "3.3.13"`,  
+and nuxt is later than `3.10.0`
+
+https://github.com/nuxt/ui/issues/1171#issuecomment-1910975705
+
 ## Setup
 
 Make sure to install the dependencies:

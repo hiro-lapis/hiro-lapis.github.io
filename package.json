@@ -11,15 +11,21 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
+    "@nuxt/ui": "^2.14.2",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@pinia/nuxt": "^0.5.1",
     "@tsparticles/shape-heart": "^3.3.0",
-    "nuxt": "^3.7.4",
+    "nuxt": "^3.10.0",
     "nuxt-particles": "^0.1.5",
     "tsparticles-preset-big-circles": "^2.12.0",
     "tsparticles-preset-confetti": "^2.12.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.5"
+  },
+  "overrides": {
+    "nuxt": {
+      "vue": "3.3.13"
+    }
   }
 }
