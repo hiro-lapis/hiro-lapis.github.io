@@ -1,15 +1,44 @@
 <template>
   <div>
-    <button @click="show = !show">
-      Toggle second particles
-    </button>
+    <div class="py-4">
+      <UMeter
+        :value="25"
+        label=""
+        indicator
+      />
+    </div>
+    <UInput
+      :id='uInput'
+      :loading="loading"
+      color="primary"
+      placeholder="入力してね"
+      :icon="inputIcon"
+      v-model="value"
+    />
+    <UButton
+      :id='uButton'
+      size="md"
+      @click="setLoad"
+    >ロード</UButton>
+    <UButton
+      :id='uButton'
+      size="md"
+      @click="changePreset"
+      ref="button"
+    >particle</UButton>
+
+    <UButton
+      :id='uButton'
+      size="md"
+      icon="i-heroicons-light-bulb"
+    >アイコン</UButton>
     <p>NO: {{ store.getCount }}</p>
-    <button @click="store.increment">
+    <UButton size="md" @click="store.increment">
       +1
-    </button>
-    <button @click="store.decrement">
+    </UButton>
+    <UButton size="md" @click="store.decrement">
       -1
-    </button>
+    </UButton>
   </div>
   <div>
     <NuxtParticles
@@ -23,7 +52,7 @@
       :options="options2"
     />
     <NuxtParticles
-      v-if="no === 3"
+      v-if="no === 3 && show"
       id="tsparticles3"
       :options="options3"
     />
@@ -55,6 +84,23 @@ import { tsParticles, type IOptions } from 'tsparticles-engine'
 import { loadBigCirclesPreset } from "tsparticles-preset-big-circles"
 import { loadConfettiPreset } from "tsparticles-preset-confetti"
 
+const value = ref('')
+/**
+ * nuxt/ui
+ * https://ui.nuxt.com/components
+ */
+// for using nuxt/ui, required to use useId
+const uInput = useId()
+const uButton = useId()
+
+const loading = ref(false)
+const inputIcon = ref('')
+const setLoad = () => {
+  loading.value = true
+  setTimeout(() => {
+    loading.value = false
+  }, 1000)
+}
 /**
  * nuxt particle's sample(best example)
  * https://stackblitz.com/github/Joepocalyptic/nuxt-particles?file=playground%2Fapp.vue
@@ -90,8 +136,29 @@ import { loadConfettiPreset } from "tsparticles-preset-confetti"
 
 // not split store, or not can't keep store reactivity
 const store = useStore()
-const show = ref(false)
 const no = computed(() => store.getCount)
+
+const show = ref(true)
+const changePreset = () => {
+  if (options3.value.preset === 'confetti') {
+    options3.value.preset = 'big-circles'
+  } else {
+    options3.value.preset = 'confetti'
+  }
+  show.value = false
+  setTimeout(() => {
+    show.value = true
+  }, 100)
+
+  tsParticles.refresh()
+  // tsParticles.addPreset('big-circles', { })
+}
+// tsParticles.setOnClickHandler((event, particles) => {
+//     /* custom on click handler */
+//     console.log('particles', particles)
+//     console.log('event', event)
+
+// });
 
 if(process.client) {
   await loadFull(tsParticles)
