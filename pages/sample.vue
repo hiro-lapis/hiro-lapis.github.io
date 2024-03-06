@@ -26,6 +26,12 @@
       @click="changePreset"
       ref="button"
     >particle</UButton>
+    <UButton
+      :id='uButton'
+      size="md"
+      @click="pause"
+      ref="button"
+    >pause</UButton>
 
     <UButton
       :id='uButton'
@@ -151,14 +157,17 @@ const changePreset = () => {
   }, 100)
 
   tsParticles.refresh()
+  tsParticles.addPreset('big-circles', { })
+}
+const pause = () => {
+  const particles = tsParticles.domItem(0)
+  particles?.stop()
+  setTimeout(() => {
+    particles?.start()
+  }, 1000)
+  // tsParticles.refresh()
   // tsParticles.addPreset('big-circles', { })
 }
-// tsParticles.setOnClickHandler((event, particles) => {
-//     /* custom on click handler */
-//     console.log('particles', particles)
-//     console.log('event', event)
-
-// });
 
 if(process.client) {
   await loadFull(tsParticles)
