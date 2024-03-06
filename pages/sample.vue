@@ -3,11 +3,11 @@
     <button @click="show = !show">
       Toggle second particles
     </button>
-    <p>NO: {{ no }}</p>
-    <button @click="no++">
+    <p>NO: {{ store.getCount }}</p>
+    <button @click="store.increment">
       +1
     </button>
-    <button @click="--no">
+    <button @click="store.decrement">
       -1
     </button>
   </div>
@@ -88,9 +88,10 @@ import { loadConfettiPreset } from "tsparticles-preset-confetti"
  *
  */
 
-
+// not split store, or not can't keep store reactivity
+const store = useStore()
 const show = ref(false)
-const no = ref(3)
+const no = computed(() => store.getCount)
 
 if(process.client) {
   await loadFull(tsParticles)
