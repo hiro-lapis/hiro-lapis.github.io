@@ -3,6 +3,7 @@
     <UInput :id='uInput' v-model="value" />
     <UButton
       :id='uButton'
+      @click=""
       size="md"
     >スタート</UButton>
     <NuxtWelcome />
