@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
   ],
+  css: ['~/assets/foundation/main.scss'],
   ui: {
     global: true,
   },
@@ -20,5 +21,18 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/hiro-lapis.github.io/', // /<repository>/
     buildAssetsDir: 'assets',
+    head: {
+      link: [
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.googleapis.com',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap',
+          crossorigin: '',
+        },
+      ],
+    },
   },
 })
