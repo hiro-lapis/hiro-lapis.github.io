@@ -9,9 +9,9 @@
       </UButton>
       <UButton
       :id='uSaveButton'
+      @click="state.setText(text)"
       size="md"
       >{{ 'save' }}</UButton>
-      <!-- @click="state.setText(text)" -->
     </div>
     <div class="m-auto w-[400px]">
       <UInput
@@ -27,7 +27,7 @@
         <span class="text-gray-500 dark:text-gray-400 text-xs">{{ 'limit:' + remain }}</span>
       </template>
       </UInput>
-      <!-- <UCheckbox v-model="state.autoSaveText" name="autosave" label="auto save" /> -->
+      <UCheckbox v-model="state.autoSaveText" name="autosave" label="auto save" />
       <p>time: {{ ms }}</p>
       <p>count: {{ wordCount }}</p>
       <UTextarea
@@ -45,6 +45,8 @@
 </template>
 
 <script setup lang="ts">
+const state = useStore()
+
 const useTimer = () => {
   const timer = ref(0)
   const timeLimit = ref(600)
@@ -112,11 +114,11 @@ const {
   timeLimit,
   remain,
 } = useTimer()
-// watch(() => started.value, (newV, oldV) => {
-//   if (!newV && oldV && (state.enabledAutoSaveText)) {
-//     state.setText(text.value)
-//   }
-// })
+watch(() => started.value, (newV, oldV) => {
+  if (!newV && oldV && (state.enabledAutoSaveText)) {
+    state.setText(text.value)
+  }
+})
 
 const useWriting = () => {
   const text = ref('')
@@ -133,12 +135,10 @@ const {
   text,
   wordCount,
 } = useWriting()
-
-// const state = useStore()
-// onMounted(() => {
-//   text.value = state.getText ?? ''
-//   console.log(state.getText)
-// })
+onMounted(() => {
+  text.value = state.getText ?? ''
+  console.log(state.getText)
+})
 
 const uInput = useId()
 const uTextArea = useId()
