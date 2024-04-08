@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     },
   },
   nitro:{
+    // https://github.com/nuxt/nuxt/issues/24228#issuecomment-1922526863
     prerender: {
       failOnError: false,
     },
