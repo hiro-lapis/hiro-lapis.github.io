@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   },
   routeRules: {
     // Disable pre-rendered at build time
-    '/writing': { prerender: false },
+    '/writing': { prerender: true },
   },
   devtools: { enabled: true },
   typescript: {
