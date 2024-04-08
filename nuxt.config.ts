@@ -1,5 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  routeRules: {
+    '*': { prerender: false},
+  },
+  // nitro:{
+    // https://github.com/nuxt/nuxt/issues/24228#issuecomment-1922526863
+  //   prerender: {
+  //     failOnError: false,
+  //   },
+  // },
   devtools: { enabled: true },
   typescript: {
     strict: true,
@@ -14,9 +23,6 @@ export default defineNuxtConfig({
   css: ['~/assets/foundation/main.scss'],
   ui: {
     global: true,
-  },
-  colorMode: {
-    preference: 'dark' // always use light mode
   },
   app: {
     baseURL: '/hiro-lapis.github.io/', // /<repository>/
@@ -33,12 +39,6 @@ export default defineNuxtConfig({
           crossorigin: '',
         },
       ],
-    },
-  },
-  nitro:{
-    // https://github.com/nuxt/nuxt/issues/24228#issuecomment-1922526863
-    prerender: {
-      failOnError: false,
     },
   },
 })
