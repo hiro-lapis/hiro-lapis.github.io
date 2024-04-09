@@ -9,9 +9,9 @@
       </UButton>
       <UButton
       :id='uSaveButton'
-      @click="state.setText(text)"
       size="md"
       >{{ 'save' }}</UButton>
+      <!-- @click="state.setText(text)" -->
     </div>
     <div class="m-auto w-[400px]">
       <UInput
@@ -27,7 +27,7 @@
         <span class="text-gray-500 dark:text-gray-400 text-xs">{{ 'limit:' + remain }}</span>
       </template>
       </UInput>
-      <UCheckbox v-model="state.autoSaveText" name="autosave" label="auto save" />
+      <!-- <UCheckbox v-model="state.autoSaveText" name="autosave" label="auto save" /> -->
       <p>time: {{ ms }}</p>
       <p>count: {{ wordCount }}</p>
       <UTextarea
@@ -135,6 +135,7 @@ const {
   text,
   wordCount,
 } = useWriting()
+
 onMounted(() => {
   text.value = state.getText ?? ''
   console.log(state.getText)
