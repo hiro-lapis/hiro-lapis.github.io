@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 console.log('Hello World')
 
-const value = ref('')
+const value = useState('value', () => '')
 const uInput = useId()
 const uButton = useId()
 </script>
