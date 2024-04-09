@@ -1,6 +1,7 @@
 <template>
   <div>
-    <UInput :id='uInput' v-model="value" />
+    <UInput />
+    <UInput :id="uInput" v-model="value" />
     <UButton
       :id='uButton'
       @click=""
