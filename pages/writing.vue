@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-const state = useStore()
+// const state = useStore()
 
 const useTimer = () => {
   const timer = ref(0)
@@ -115,9 +115,9 @@ const {
   remain,
 } = useTimer()
 watch(() => started.value, (newV, oldV) => {
-  if (!newV && oldV && (state.enabledAutoSaveText)) {
-    state.setText(text.value)
-  }
+  // if (!newV && oldV && (state.enabledAutoSaveText)) {
+  //   state.setText(text.value)
+  // }
 })
 
 const useWriting = () => {
@@ -137,8 +137,8 @@ const {
 } = useWriting()
 
 onMounted(() => {
-  text.value = state.getText ?? ''
-  console.log(state.getText)
+  // text.value = state.getText ?? ''
+  // console.log(state.getText)
 })
 
 const uInput = useId()
