@@ -1,17 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
-  nitro:{
-    // https://github.com/nuxt/nuxt/issues/24228#issuecomment-1922526863
-    prerender: {
-      failOnError: false,
-    },
-  },
-  routeRules: {
-    // Disable pre-rendered at build time
-    '/': { ssr: false, prerender: false },
-    '/writing': { ssr: false, prerender: false },
-  },
+  // https://nitro.unjs.io/config
+  // nitro:{
+  //   // https://github.com/nuxt/nuxt/issues/24228#issuecomment-1922526863
+  //   prerender: {
+  //     failOnError: false,
+  //   },
+  // },
+  // routeRules: {
+  //   // Disable pre-rendered at build time
+  //   '/': { ssr: false, prerender: false },
+  //   '/writing': { ssr: false, prerender: false },
+  // },
   devtools: { enabled: true },
   typescript: {
     strict: true,
