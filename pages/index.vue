@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <ClientOnly>
     <UInput />
     <UCheckbox />
     <UInput :id="uInput" v-model="value" />
@@ -9,7 +9,7 @@
       size="md"
     >スタート</UButton>
     <NuxtWelcome />
-  </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
