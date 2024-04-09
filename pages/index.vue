@@ -1,6 +1,7 @@
 <template>
   <div>
     <UInput />
+    <UCheckbox />
     <UInput :id="uInput" v-model="value" />
     <UButton
       :id='uButton'
