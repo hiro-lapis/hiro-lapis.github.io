@@ -15,8 +15,8 @@ const page = () => {
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          label='each letter feeds on your future...'
-          color='success'
+          label="each letter feeds on your future..."
+          color="success"
           className="max-w-s my-auto"
         />
       </div>
