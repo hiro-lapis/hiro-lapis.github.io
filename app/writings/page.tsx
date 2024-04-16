@@ -8,6 +8,13 @@ const page = () => {
     return text.split(/\s+/).filter(Boolean).length
   }, [text]) // textが更新されるたびに再計算
 
+  const color = useMemo(() => {
+    if (wordCount >= 100) return 'success'
+    if (wordCount >= 70) return 'primary'
+    if (wordCount >= 50) return 'warning'
+    return 'default'
+  }, [wordCount])
+
   return (
     <div className="w-96 mx-auto">
       <div className="my-auto wid">
@@ -16,8 +23,10 @@ const page = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           label="each letter feeds on your future..."
-          color="success"
+          color={color}
           className="max-w-s my-auto"
+          minRows={20}
+          maxRows={20}
         />
       </div>
     </div>
