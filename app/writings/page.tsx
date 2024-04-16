@@ -11,7 +11,7 @@ const page = () => {
   return (
     <div className="w-96 mx-auto">
       <div className="my-auto wid">
-        <p className="mb-1">wordcount: {wordCount} </p>
+        <p className="pl-2 mb-1">wordcount: {wordCount} </p>
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
