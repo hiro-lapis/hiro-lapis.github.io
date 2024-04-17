@@ -49,6 +49,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ├── package.json
 ├── postcss.config.js
 ├── public
+| └── .nojekyll // require for deploy github pages
 ├── tailwind.config.ts
 └── tsconfig.json
 ```
