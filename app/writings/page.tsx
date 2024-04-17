@@ -2,7 +2,7 @@
 import { useState, useMemo } from 'react'
 import { Textarea } from '@nextui-org/react'
 
-const page = () => {
+const Page = () => {
   const [text, setText] = useState('')
   const wordCount = useMemo(() => {
     return text.split(/\s+/).filter(Boolean).length
@@ -33,4 +33,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
