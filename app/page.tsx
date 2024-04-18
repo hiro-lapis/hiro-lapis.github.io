@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Link } from '@nextui-org/react'
-import basePath from "../next.config.mjs" // 追加
-const BASE_PATH = basePath ? basePath : '' // 追加
+import nuxtconfig from '../next.config.mjs'
+const BASE_PATH = nuxtconfig.basePath ? nuxtconfig.basePath : ''
 
 export default function Home() {
   return (
