@@ -31,8 +31,7 @@ const Page = () => {
         </div>
         <div className="pl-2 mb-4">
           <p>{'time limit' + remain}</p>
-          <Progress value={rate} max={100} color="primary" />
-          {/* <p>{'time limit' + remain}</p> */}
+          <Progress value={rate} maxValue={100} color="primary" />
           {/* <CircularProgress
             size="md"
             value={rate}
@@ -46,7 +45,7 @@ const Page = () => {
             value={wordCount}
             label={'target word count'}
             showValueLabel
-            max={100}
+            maxValue={100}
             color={color}
           />
         </div>
