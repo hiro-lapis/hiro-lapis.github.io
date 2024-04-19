@@ -1,11 +1,7 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { firaMono } from '@/app/fonts'
 import './globals.css'
 import { Providers } from './providers'
-
-// https://fonts.google.com/knowledge/glossary#a-d
-// Available subsets: `cyrillic`, `cyrillic-ext`, `greek`, `greek-ext`, `latin`, `latin-ext`, `vietnamese`
-const inter = Inter({ subsets: ['cyrillic'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -19,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={'light ' + inter.className}>
+      <body className={'light ' + `${firaMono.className}`}>
         <Providers>
           <header></header>
           {children}
