@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { firaMono } from '@/app/fonts'
 import './globals.css'
 import { Providers } from './providers'
+import Header from '@/app/components/Header'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -17,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={'light ' + `${firaMono.className}`}>
         <Providers>
-          <header></header>
+          <Header />
           {children}
           <footer></footer>
         </Providers>
