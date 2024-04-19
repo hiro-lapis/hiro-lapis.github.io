@@ -10,6 +10,15 @@
     "prettier:write": "npx prettier --write './**/*.{js,ts,tsx}'",
     "prepare": "husky"
   },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "./i18n/*.json": [
+      "prettier --write"
+    ]
+  },
   "dependencies": {
     "@nextui-org/react": "^2.2.10",
     "framer-motion": "^11.0.28",
