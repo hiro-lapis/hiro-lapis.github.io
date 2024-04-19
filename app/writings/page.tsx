@@ -29,9 +29,14 @@ const Page = () => {
             {started ? 'stop' : 'start'}
           </Button>
         </div>
-        <div className="pl-2 mb-4">
+        <div className="mb-4">
           <p>{'time limit' + remain}</p>
-          <Progress value={rate} maxValue={100} color="primary" />
+          <Progress
+            value={rate}
+            maxValue={100}
+            aria-label="time limit"
+            color="primary"
+          />
           {/* <CircularProgress
             size="md"
             value={rate}
@@ -40,10 +45,10 @@ const Page = () => {
             showValueLabel
           /> */}
         </div>
-        <div className="pl-2 mb-4">
+        <div className="mb-4">
           <Progress
             value={wordCount}
-            label={'target word count'}
+            label={`word count(${wordCount})`}
             showValueLabel
             maxValue={100}
             color={color}
@@ -53,6 +58,7 @@ const Page = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           label="each letter feeds on your future..."
+          aria-label="writing textarea"
           color={color}
           className="max-w-s my-auto"
           minRows={20}
