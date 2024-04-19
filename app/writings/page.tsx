@@ -1,12 +1,7 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
 import { useTimer } from '@/hooks/useTimer'
-import {
-  Button,
-  Textarea,
-  Progress,
-  CircularProgress,
-} from '@nextui-org/react'
+import { Button, Textarea, Progress, CircularProgress } from '@nextui-org/react'
 
 const Page = () => {
   const [text, setText] = useState('')
@@ -20,27 +15,23 @@ const Page = () => {
     if (wordCount >= 50) return 'warning'
     return 'default'
   }, [wordCount])
-  const { started, remain, rate, switching, } = useTimer()
+  const { started, remain, rate, switching } = useTimer()
 
   return (
     <div className="w-96 mx-auto">
       <div className="my-auto wid">
         <div className="pl-2 mb-4">
           <Button
-            color={ started ? 'default':'primary'}
-            size='sm'
+            color={started ? 'default' : 'primary'}
+            size="sm"
             onClick={switching}
           >
-            { started ? 'stop' : 'start'}
+            {started ? 'stop' : 'start'}
           </Button>
         </div>
         <div className="pl-2 mb-4">
           <p>{'time limit' + remain}</p>
-          <Progress
-            value={rate}
-            max={100}
-            color='primary'
-          />
+          <Progress value={rate} max={100} color="primary" />
           {/* <p>{'time limit' + remain}</p> */}
           {/* <CircularProgress
             size="md"

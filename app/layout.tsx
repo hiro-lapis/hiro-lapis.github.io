@@ -3,7 +3,9 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 
-// const inter = Inter({ subsets: ['latin'] })
+// https://fonts.google.com/knowledge/glossary#a-d
+// Available subsets: `cyrillic`, `cyrillic-ext`, `greek`, `greek-ext`, `latin`, `latin-ext`, `vietnamese`
+const inter = Inter({ subsets: ['cyrillic'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="light">
-      <body>
+    <html lang="en">
+      <body className={'light ' + inter.className}>
         <Providers>
           <header></header>
           {children}
