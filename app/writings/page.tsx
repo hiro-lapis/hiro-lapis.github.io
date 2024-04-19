@@ -1,6 +1,12 @@
 'use client'
-import { useState, useMemo } from 'react'
-import { Textarea } from '@nextui-org/react'
+import { useState, useMemo, useEffect } from 'react'
+import { useTimer } from '@/hooks/useTimer'
+import {
+  Button,
+  Textarea,
+  Progress,
+  CircularProgress,
+} from '@nextui-org/react'
 
 const Page = () => {
   const [text, setText] = useState('')
@@ -14,11 +20,45 @@ const Page = () => {
     if (wordCount >= 50) return 'warning'
     return 'default'
   }, [wordCount])
+  const { started, remain, rate, switching, } = useTimer()
 
   return (
     <div className="w-96 mx-auto">
       <div className="my-auto wid">
-        <p className="pl-2 mb-1">wordcount: {wordCount} </p>
+        <div className="pl-2 mb-4">
+          <Button
+            color={ started ? 'default':'primary'}
+            size='sm'
+            onClick={switching}
+          >
+            { started ? 'stop' : 'start'}
+          </Button>
+        </div>
+        <div className="pl-2 mb-4">
+          <p>{'time limit' + remain}</p>
+          <Progress
+            value={rate}
+            max={100}
+            color='primary'
+          />
+          {/* <p>{'time limit' + remain}</p> */}
+          {/* <CircularProgress
+            size="md"
+            value={rate}
+            color="success"
+            formatOptions={{ style: "percent", }}
+            showValueLabel
+          /> */}
+        </div>
+        <div className="pl-2 mb-4">
+          <Progress
+            value={wordCount}
+            label={'target word count'}
+            showValueLabel
+            max={100}
+            color={color}
+          />
+        </div>
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
