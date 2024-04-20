@@ -1,6 +1,7 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
 import { useTimer } from '@/hooks/useTimer'
+import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { Button, Textarea, Progress, CircularProgress } from '@nextui-org/react'
 
 const Page = () => {
@@ -17,16 +18,36 @@ const Page = () => {
   }, [wordCount])
   const { started, remain, rate, switching } = useTimer()
 
+  const { setStorage, getStorage } = useLocalStorage()
+  const save = () => {
+    if (!text.trim()) return
+    setStorage({ key: 'writing', value: text.trim() })
+  }
+  const load = () => {
+    const data = getStorage('writing', 'string')
+    if (!data) {
+      alert('data not found')
+      return
+    }
+    setText(data)
+  }
+
   return (
     <div className="w-96 mx-auto">
       <div className="my-auto wid">
-        <div className="pl-2 mb-4">
+        <div className="flex space-x-4 pl-2 mb-4">
           <Button
             color={started ? 'default' : 'primary'}
             size="sm"
             onClick={switching}
           >
             {started ? 'stop' : 'start'}
+          </Button>
+          <Button color={'primary'} variant="flat" size="sm" onClick={save}>
+            {'save'}
+          </Button>
+          <Button color={'primary'} variant="flat" size="sm" onClick={load}>
+            {'load'}
           </Button>
         </div>
         <div className="mb-4">
