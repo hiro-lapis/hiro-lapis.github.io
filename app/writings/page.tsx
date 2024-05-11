@@ -33,7 +33,7 @@ const Page = () => {
   }
 
   return (
-    <div className="w-96 mx-auto">
+    <div className="max-w-5xl mx-auto">
       <div className="my-auto wid">
         <div className="flex space-x-4 pl-2 mb-4">
           <Button
@@ -81,6 +81,7 @@ const Page = () => {
           label="each letter feeds on your future..."
           aria-label="writing textarea"
           color={color}
+          size="lg"
           className="max-w-s my-auto"
           minRows={20}
           maxRows={20}
