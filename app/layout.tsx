@@ -22,10 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={'light ' + `${firaMono.className}`}
-        suppressHydrationWarning
-      >
+      <body className={`${firaMono.className}`} suppressHydrationWarning>
         <Providers>
           <Header />
           {children}
