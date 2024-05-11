@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic'
+import { ThemeSwitcher } from '../components/ThemeSwitcher'
 
 // lazy load on client side rendering
 const HomeIcon = dynamic(() => import('@/app/components/HeaderHomeIcon'), {
@@ -41,6 +42,7 @@ export default function Header() {
           {/* <Link href="#">Login</Link> */}
         </NavbarItem>
         <NavbarItem>
+          <ThemeSwitcher />
           {/* <Button as={Link} color="primary" href="#" variant="flat">
               Sign Up
             </Button> */}
