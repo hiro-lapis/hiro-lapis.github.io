@@ -3,6 +3,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { useTimer } from '@/hooks/useTimer'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { Button, Textarea, Progress, CircularProgress } from '@nextui-org/react'
+import DataManagementModal from '@/app/components/writings/DataManagementModal'
 
 const Page = () => {
   const [text, setText] = useState('')
@@ -18,19 +19,24 @@ const Page = () => {
   }, [wordCount])
   const { started, remain, rate, switching } = useTimer()
 
-  const { setStorage, getStorage } = useLocalStorage()
+  // const { setStorage, getStorage } = useLocalStorage()
+  const { setWritingStorage, getWritingStorage, getWritingListStorage } =
+    useLocalStorage()
   const save = () => {
     if (!text.trim()) return
-    setStorage({ key: 'writing', value: text.trim() })
+    setWritingStorage({ key: 'writing', value: text.trim() })
   }
   const load = () => {
-    const data = getStorage('writing', 'string')
+    const data = getWritingStorage('writing')
     if (!data) {
       alert('data not found')
       return
     }
     setText(data)
   }
+  // data list
+  const lists = (getWritingListStorage() ?? '').split(',')
+  const [writingList, setWritingList] = useState(lists)
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -43,6 +49,10 @@ const Page = () => {
           >
             {started ? 'stop' : 'start'}
           </Button>
+          <DataManagementModal
+            mode="save"
+            button={{ size: 'sm', color: 'primary' }}
+          />
           <Button color={'primary'} variant="flat" size="sm" onClick={save}>
             {'save'}
           </Button>
