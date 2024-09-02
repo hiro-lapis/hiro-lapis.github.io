@@ -2,21 +2,76 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useTimer } from '@/hooks/useTimer'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
-import { Button, Textarea, Progress, CircularProgress } from '@nextui-org/react'
+import { Button, Textarea, Progress } from '@nextui-org/react'
 
 const Page = () => {
   const [text, setText] = useState('')
   const wordCount = useMemo(() => {
     return text.split(/\s+/).filter(Boolean).length
   }, [text]) // textが更新されるたびに再計算
-
+  // indep,integどちらを練習するか
+  const [mode, setMode] = useState('initial')
   const color = useMemo(() => {
-    if (wordCount >= 100) return 'success'
-    if (wordCount >= 70) return 'primary'
-    if (wordCount >= 50) return 'warning'
+    if (mode === 'indep') {
+      if (wordCount >= 100) return 'success'
+      if (wordCount >= 70) return 'primary'
+      if (wordCount >= 50) return 'warning'
+    }
+    if (mode === 'integ') {
+      if (wordCount >= 300) return 'success'
+      if (wordCount >= 220) return 'primary'
+      if (wordCount >= 180) return 'warning'
+    }
     return 'default'
   }, [wordCount])
-  const { started, remain, rate, switching } = useTimer()
+  const {
+    started,
+    remain,
+    rate,
+    switching,
+    setTimeLimit,
+    time,
+    timeLimit,
+    convertMs,
+  } = useTimer()
+  const start = (mode: 'indep' | 'integ') => {
+    setMode(mode)
+    if (mode == 'integ') {
+      setTimeLimit(60 * 20)
+      setWordCounts(initialIntegWordCounts)
+    } else {
+      setTimeLimit(60 * 10)
+      setWordCounts(initialIndepWordCounts)
+    }
+    switching()
+  }
+
+  const initialIndepWordCounts = [
+    { second: 240, count: 0 },
+    { second: 420, count: 0 },
+    { second: 600, count: 0 },
+  ]
+  const initialIntegWordCounts = [
+    { second: 240, count: 0 },
+    { second: 480, count: 0 },
+    { second: 720, count: 0 },
+    { second: 960, count: 0 },
+    { second: 120, count: 0 },
+  ]
+  const [wordCounts, setWordCounts] = useState(initialIndepWordCounts)
+  // word count record based on threshold second
+  useMemo(() => {
+    const index = wordCounts.map((c) => c.second).findIndex((w) => w === time)
+    if (index !== -1) {
+      setWordCounts(
+        wordCounts.map((w, i) =>
+          i === index
+            ? { second: wordCounts[index].second, count: wordCount }
+            : w,
+        ),
+      )
+    }
+  }, [time])
 
   const { setStorage, getStorage } = useLocalStorage()
   const save = () => {
@@ -36,13 +91,28 @@ const Page = () => {
     <div className="max-w-5xl mx-auto">
       <div className="my-auto wid">
         <div className="flex space-x-4 pl-2 mb-4">
-          <Button
-            color={started ? 'default' : 'primary'}
-            size="sm"
-            onClick={switching}
-          >
-            {started ? 'stop' : 'start'}
-          </Button>
+          {['initial', 'indep'].includes(mode) ? (
+            <Button
+              color={started ? 'default' : 'primary'}
+              size="sm"
+              onClick={() => start('indep')}
+            >
+              {started ? 'stop' : 'indep(10m)'}
+            </Button>
+          ) : (
+            ''
+          )}
+          {['initial', 'integ'].includes(mode) ? (
+            <Button
+              color={started ? 'default' : 'primary'}
+              size="sm"
+              onClick={() => start('integ')}
+            >
+              {started ? 'stop' : 'integ(20m)'}
+            </Button>
+          ) : (
+            ''
+          )}
           <Button color={'primary'} variant="flat" size="sm" onClick={save}>
             {'save'}
           </Button>
@@ -51,7 +121,7 @@ const Page = () => {
           </Button>
         </div>
         <div className="mb-4">
-          <p>{'time limit' + remain}</p>
+          <p>{'time limit ' + remain}</p>
           <Progress
             value={rate}
             maxValue={100}
@@ -71,7 +141,7 @@ const Page = () => {
             value={wordCount}
             label={`word count(${wordCount})`}
             showValueLabel
-            maxValue={100}
+            maxValue={['indep', 'initial'].includes(mode) ? 120 : 300}
             color={color}
           />
         </div>
@@ -86,6 +156,11 @@ const Page = () => {
           minRows={20}
           maxRows={20}
         />
+        {wordCounts.map((wordCount) => (
+          <p key={wordCount.second} className="mt-1 ml-2">
+            {convertMs(wordCount.second)}sec({wordCount.count})
+          </p>
+        ))}
       </div>
     </div>
   )
