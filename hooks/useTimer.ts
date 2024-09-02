@@ -48,11 +48,13 @@ export const useTimer = () => {
     if (started) stop()
   }
   const convertMs = (second: number) => {
+    const prefix = 0 > second ? '+' : ''
     const min = Math.floor(second / 60)
-    const m = min < 10 ? '0' + min.toString() : min.toString()
+    const m = min < 10 ? Math.abs(min).toString() : Math.abs(min).toString()
     const sec = second % 60
-    const s = sec < 10 ? '0' + sec.toString() : sec.toString()
-    return `${m}:${s}`
+    const s =
+      sec < 10 ? '0' + Math.abs(sec).toString() : Math.abs(sec).toString()
+    return `${prefix}${m}:${s}`
   }
   const timeLimitMs = useMemo(() => convertMs(timeLimit), [])
   const ms = useMemo(() => convertMs(time), [time])
@@ -64,6 +66,7 @@ export const useTimer = () => {
     time,
     timeLimit,
     start,
+    convertMs,
     stop,
     reset,
     switching,
