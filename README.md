@@ -53,3 +53,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ├── tailwind.config.ts
 └── tsconfig.json
 ```
+
+### packages
+
+| package | function |
+|---|---|
+| `@types/dom-speech-recognition`  | types for resolve speech api types error |
