@@ -148,7 +148,7 @@ const Page = () => {
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          label="each letter feeds on your future..."
+          label="each letter serve as a foundation for your future..."
           aria-label="writing textarea"
           color={color}
           size="lg"
