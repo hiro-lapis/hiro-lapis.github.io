@@ -1,5 +1,8 @@
+'use client'
+
 import dynamic from 'next/dynamic'
 import { ThemeSwitcher } from '../components/ThemeSwitcher'
+import { usePathname } from 'next/navigation'
 
 // lazy load on client side rendering
 const HomeIcon = dynamic(() => import('@/app/components/HeaderHomeIcon'), {
@@ -15,27 +18,26 @@ import {
 } from '@nextui-org/react'
 
 export default function Header() {
+  const pathname = usePathname()
   return (
     <Navbar>
       <NavbarBrand>
         <HomeIcon />
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/writings">
+        <NavbarItem isActive={pathname === '/writings'}>
+          <Link
+            color={pathname === '/writings' ? 'primary' : 'foreground'}
+            href="/writings"
+          >
             Writing
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
+        {/* <NavbarItem isActive={pathname === '/notes'}>
+          <Link color={pathname === '/notes' ? 'primary' : 'foreground'} href="/writings">
+            Note
           </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
+        </NavbarItem> */}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
