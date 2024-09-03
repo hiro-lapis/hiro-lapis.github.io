@@ -33,6 +33,14 @@ export default function Header() {
             Writing
           </Link>
         </NavbarItem>
+        <NavbarItem isActive={pathname === '/speakings'}>
+          <Link
+            color={pathname === '/speakings' ? 'primary' : 'foreground'}
+            href="/speakings"
+          >
+            Speaking
+          </Link>
+        </NavbarItem>
         {/* <NavbarItem isActive={pathname === '/notes'}>
           <Link color={pathname === '/notes' ? 'primary' : 'foreground'} href="/writings">
             Note
