@@ -113,6 +113,7 @@ const Page = () => {
             onClick={() => {
               setIsRecording((prev) => !prev)
             }}
+            isLoading={isRecording}
           >
             {isRecording ? 'stop' : 'rec'}
           </Button>
