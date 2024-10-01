@@ -24,16 +24,8 @@ const Page = () => {
     }
     return 'default'
   }, [wordCount])
-  const {
-    started,
-    remain,
-    rate,
-    switching,
-    setTimeLimit,
-    time,
-    timeLimit,
-    convertMs,
-  } = useTimer()
+  const { started, remain, rate, switching, setTimeLimit, time, convertM } =
+    useTimer()
   const start = (mode: 'indep' | 'integ') => {
     setMode(mode)
     if (mode == 'integ') {
@@ -47,8 +39,15 @@ const Page = () => {
   }
 
   const initialIndepWordCounts = [
+    { second: 60, count: 0 },
+    { second: 120, count: 0 },
+    { second: 180, count: 0 },
     { second: 240, count: 0 },
+    { second: 300, count: 0 },
+    { second: 360, count: 0 },
     { second: 420, count: 0 },
+    { second: 480, count: 0 },
+    { second: 540, count: 0 },
     { second: 600, count: 0 },
   ]
   const initialIntegWordCounts = [
@@ -86,6 +85,23 @@ const Page = () => {
     }
     setText(data)
   }
+  const placeHolderList = [
+    'each letter makes you better',
+    'only action change your life',
+    'have a nice day, have a nice study',
+    'run first. pleasure comes after you',
+    'great results love tireless efforts',
+    'just do it',
+  ]
+  const getRandomArbitrary = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min) + min)
+  }
+  const [placeHolderText, setplaceHolderText] = useState('')
+  useEffect(() => {
+    setplaceHolderText(
+      placeHolderList[getRandomArbitrary(0, placeHolderList.length)],
+    )
+  }, [])
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -148,18 +164,17 @@ const Page = () => {
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          label="each letter serve as a foundation for your future..."
+          label={placeHolderText}
           aria-label="writing textarea"
-          color={color}
           size="lg"
           className="max-w-s my-auto"
           minRows={20}
           maxRows={20}
         />
         {wordCounts.map((wordCount) => (
-          <p key={wordCount.second} className="mt-1 ml-2">
-            {convertMs(wordCount.second)}sec({wordCount.count})
-          </p>
+          <span key={wordCount.second} className="mt-1 ml-2">
+            {convertM(wordCount.second)}m({wordCount.count})
+          </span>
         ))}
       </div>
     </div>
