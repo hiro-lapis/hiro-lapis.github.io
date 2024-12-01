@@ -1,8 +1,9 @@
 'use client'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { firaMono, raleway, roboto, robotoMono } from '@/app/fonts'
 import { useTimer } from '@/hooks/useTimer'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useMouseOverZoom } from '@/hooks/useMouseMove'
 import { Button, Textarea, Progress, Input, Image } from '@nextui-org/react'
 
 const Page = () => {
@@ -143,6 +144,16 @@ const Page = () => {
       }
     })
   }
+  const source = useRef<HTMLImageElement>(null)
+  const target = useRef<HTMLCanvasElement>(null)
+  const cursor = useRef<HTMLDivElement>(null)
+  const showImg = useMemo(() => {
+    return img ? '' : 'hidden'
+  }, [img])
+  const [hide, setHide] = useState(false)
+
+  // call the custom hook
+  useMouseOverZoom(source, target, cursor)
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -202,13 +213,31 @@ const Page = () => {
                 onFileChange(e)
               }}
             />
-            {img ? (
-              <div className="preview-box">
-                <Image isZoomed width={800} className="" src={img} />
-              </div>
-            ) : (
-              ''
-            )}
+            <div
+              className={
+                `col-span-12 md:col-span-4 md:col-start-9 border-t-8 md:border-t-0 md:border-l-8 border-indigo-500 relative z-10 ` +
+                showImg
+              }
+              onClick={() => setHide(!hide)}
+            >
+              <Image
+                ref={source}
+                src={img ? img : ''}
+                removeWrapper
+                className="w-full h-full bg-gray-100 cursor-crosshair object-cover"
+              />
+              <div
+                ref={cursor}
+                className={'border border-sky-500 absolute pointer-events-none'}
+              />
+              <canvas
+                ref={target}
+                className={
+                  'absolute pointer-events-none bottom-full translate-y-1/2 left-1/2 -translate-x-1/2 md:translate-y-0 md:translate-x-0 md:bottom-0 md:-left-0 border-2 border-primary-500 w-[950px] w-[a256px]  h-[240px] h-64a z-10 bg-gray-200' +
+                  (hide ? ' hidden' : '')
+                }
+              />{' '}
+            </div>
           </div>
           <p>{'time limit ' + remain}</p>
           <Progress
