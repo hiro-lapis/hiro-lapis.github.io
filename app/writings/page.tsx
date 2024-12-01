@@ -3,7 +3,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { firaMono, raleway, roboto, robotoMono } from '@/app/fonts'
 import { useTimer } from '@/hooks/useTimer'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
-import { Button, Textarea, Progress } from '@nextui-org/react'
+import { Button, Textarea, Progress, Input, Image } from '@nextui-org/react'
 
 const Page = () => {
   const [text, setText] = useState('')
@@ -122,6 +122,28 @@ const Page = () => {
     setFontFamily(firaMono.className)
   }
 
+  // file preview
+  const [img, setImg] = useState<string | null>(null)
+  const onFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files
+    await new Promise<ArrayBuffer>(() => {
+      if (!files) return
+      if (files!.length > 0) {
+        var file = files[0]
+        var reader = new FileReader()
+        reader.onloadend = () => {
+          const base64 = reader && reader.result
+          if (base64 && typeof base64 === 'string') {
+            setImg(base64)
+          }
+        }
+        reader.readAsDataURL(file)
+      } else {
+        setImg(null)
+      }
+    })
+  }
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className="my-auto wid">
@@ -172,6 +194,22 @@ const Page = () => {
           </Button>
         </div>
         <div className="mb-4">
+          <div>
+            <Input
+              type="file"
+              accept="image/*"
+              onChange={(e) => {
+                onFileChange(e)
+              }}
+            />
+            {img ? (
+              <div className="preview-box">
+                <Image isZoomed width={800} className="" src={img} />
+              </div>
+            ) : (
+              ''
+            )}
+          </div>
           <p>{'time limit ' + remain}</p>
           <Progress
             value={rate}
