@@ -1,5 +1,6 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
+import { firaMono, raleway, roboto, robotoMono } from '@/app/fonts'
 import { useTimer } from '@/hooks/useTimer'
 import { useLocalStorage } from '@/hooks/useLocalStorage'
 import { Button, Textarea, Progress } from '@nextui-org/react'
@@ -55,7 +56,7 @@ const Page = () => {
     { second: 480, count: 0 },
     { second: 720, count: 0 },
     { second: 960, count: 0 },
-    { second: 120, count: 0 },
+    { second: 1200, count: 0 },
   ]
   const [wordCounts, setWordCounts] = useState(initialIndepWordCounts)
   // word count record based on threshold second
@@ -103,6 +104,26 @@ const Page = () => {
     )
   }, [])
 
+  // set font family
+  const [fontFamily, setFontFamily] = useState(
+    getStorage('font', 'string') ?? 'filaMono',
+  )
+  const changeFont = () => {
+    if (fontFamily === firaMono.className) {
+      setFontFamily(raleway.className)
+      return
+    }
+    if (fontFamily === raleway.className) {
+      setFontFamily(roboto.className)
+      return
+    }
+    if (fontFamily === roboto.className) {
+      setFontFamily(robotoMono.className)
+      return
+    }
+    setFontFamily(firaMono.className)
+  }
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className="my-auto wid">
@@ -134,6 +155,14 @@ const Page = () => {
           </Button>
           <Button color={'primary'} variant="flat" size="sm" onClick={load}>
             {'load'}
+          </Button>
+          <Button
+            color={'primary'}
+            variant="flat"
+            size="sm"
+            onClick={changeFont}
+          >
+            {'change font'}
           </Button>
         </div>
         <div className="mb-4">
@@ -167,7 +196,7 @@ const Page = () => {
           label={placeHolderText}
           aria-label="writing textarea"
           size="lg"
-          className="max-w-s my-auto"
+          className={`max-w-s my-auto ${fontFamily}`}
           minRows={20}
           maxRows={20}
         />
