@@ -105,9 +105,7 @@ const Page = () => {
   }, [])
 
   // set font family
-  const [fontFamily, setFontFamily] = useState(
-    getStorage('font', 'string') ?? 'filaMono',
-  )
+  const [fontFamily, setFontFamily] = useState('filaMono')
   const changeFont = () => {
     if (fontFamily === firaMono.className) {
       setFontFamily(raleway.className)
@@ -155,6 +153,14 @@ const Page = () => {
           </Button>
           <Button color={'primary'} variant="flat" size="sm" onClick={load}>
             {'load'}
+          </Button>
+          <Button
+            color={'primary'}
+            variant="flat"
+            size="sm"
+            onClick={changeFont}
+          >
+            {'change font'}
           </Button>
           <Button
             color={'primary'}
